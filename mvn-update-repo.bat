@@ -1,0 +1,1 @@
+mvn deploy:deploy-file -DgroupId=nz.auckland.arch -DartifactId=archmodel -Dversion=1.18 -Durl=file:./local-maven-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile=local-maven-repo/archmodel.jar
