@@ -11,12 +11,21 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import fr.uga.pddl4j.encoding.CodedProblem;
+import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.parser.ErrorManager;
 import fr.uga.pddl4j.planners.ProblemFactory;
+import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.ff.FF;
+import fr.uga.pddl4j.planners.statespace.generic.GenericPlanner;
+import fr.uga.pddl4j.planners.statespace.search.strategy.AStar;
+import fr.uga.pddl4j.planners.statespace.search.strategy.BreadthFirstSearch;
+import fr.uga.pddl4j.planners.statespace.search.strategy.DepthFirstSearch;
+import fr.uga.pddl4j.planners.statespace.search.strategy.EnforcedHillClimbing;
+import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearch;
 import fr.uga.pddl4j.util.BitOp;
 import fr.uga.pddl4j.util.SequentialPlan;
 import nz.auckland.arch.Component;
@@ -63,10 +72,15 @@ public class MigrationPlanner {
 			}
 
 			// execute planner
-			FF planner = new FF();
+			EnforcedHillClimbing stateSpaceStrategy = new EnforcedHillClimbing(15 * 1000, Heuristic.Type.FAST_FORWARD, 1);
+			//AStar stateSpaceStrategy = new AStar(15 * 1000, Heuristic.Type.FAST_FORWARD, 1);
+		   // GreedyBestFirstSearch stateSpaceStrategy = new   GreedyBestFirstSearch(150 * 1000, Heuristic.Type.FAST_FORWARD, 1);
+			GenericPlanner  planner = new GenericPlanner(stateSpaceStrategy);
+			
 			CodedProblem pb = factory.encode();
 			SequentialPlan plan = planner.search(pb);
-		//	System.out.println(plan.toString());
+			System.out.println(plan.toString());
+			
 
 			// print plan
 			Plan migrationPlan = new Plan();

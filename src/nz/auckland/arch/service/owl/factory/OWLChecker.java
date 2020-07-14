@@ -142,7 +142,7 @@ public abstract class OWLChecker {
 			Hashtable<String, OWLClass> roleClassHash = new Hashtable<String, OWLClass>();
 
 			for (ArchStyle style : model.getArchstyle()) {
-
+				System.out.println("creating style: "+style.getName());
 				Hashtable<String, OWLClass> portRoleHash = new Hashtable<String, OWLClass>();
 				boolean isStyleValid = true;
 				for (ConnectorType connTyp : style.getConnectortype()) {
@@ -192,8 +192,8 @@ public abstract class OWLChecker {
 
 					// generate SWRL rule for EAConnector
 					if (connTyp.getEaConnector() != null) {
-						util.createSWLRule(util.generateSWRLRuleForEA(connTyp, connTyp.getEaConnector(), false));
-						util.createSWLRule(util.generateSWRLRuleForEA(connTyp, connTyp.getEaConnector(), true));
+					//	util.createSWLRule(util.generateSWRLRuleForEA(connTyp, connTyp.getEaConnector(), false));
+					//	util.createSWLRule(util.generateSWRLRuleForEA(connTyp, connTyp.getEaConnector(), true));
 					}
 				}
 
